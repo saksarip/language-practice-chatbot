@@ -7,7 +7,12 @@
 <body>
 <h1>Flask Chatterbot Example</h1>
 <div>
-    <p class="topText"><span>Practice conversation 15 minutes a day to keep up your French!</span></p>
+    <p class="topText"><span>Practice conversation 15 minutes a day to keep up your language!</span></p>
+<div class="btn-group">
+  <button id="englishButton">English</button>
+  <button id="frenchButton">French</button>
+  <button id="spanishButton">Spanish</button>
+</div>
 <div id="chatbox">
 <p class="botText"><span>Hi! I'm Jean Claude.</span></p>
 </div>
@@ -30,6 +35,31 @@ var chatbox = document.getElementById('chatbox');
 chatbox.scrollTop = chatbox.scrollHeight;
 });
 }
+
+
+function setEnglishBot() {
+$.get("/setenglish", {}).done(function(data) {
+var newHTML = '<p class="botText"><span>' + data + '</span></p>';
+$("#chatbox").html(newHTML);
+console.log(data);
+});
+}
+function setFrenchBot() {
+$.get("/setfrench", {}).done(function(data) {
+var newHTML = '<p class="botText"><span>' + data + '</span></p>';
+$("#chatbox").html(newHTML);
+console.log(data)
+});
+}
+
+function setSpanishBot() {
+$.get("/setspanish", {}).done(function(data) {
+var newHTML = '<p class="botText"><span>' + data + '</span></p>';
+$("#chatbox").html(newHTML);
+console.log(data)
+});
+}
+
 $("#textInput").keypress(function(e) {
 if(e.which == 13) {
 getBotResponse();
@@ -37,6 +67,18 @@ getBotResponse();
 });
 $("#buttonInput").click(function() {
 getBotResponse();
+})
+
+$("#englishButton").click(function() {
+setEnglishBot();
+})
+
+$("#frenchButton").click(function() {
+setFrenchBot();
+})
+
+$("#spanishButton").click(function() {
+setSpanishBot();
 })
 </script>
 </div>
